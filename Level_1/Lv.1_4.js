@@ -49,14 +49,14 @@ function solution(arr) {
 }
 
 /* 1) 접근 방법
-  - 위와 동일
+    - 위와 동일
   
-  /* 2) 알게된 지식
-  - Math.min() : 최솟값을 찾아주는 내장함수
+/* 2) 알게된 지식
+    - Math.min() : 최솟값을 찾아주는 내장함수
         ex) Math.min(1,2,3,4,5) // result = 1
-  - Array.indexOf(searchElement[, fromIndex]): 인자로 받은 값을 찾아 맞는 식별자 반환
-    매개변수(parameter)
-    searchElement: 찾으려는 값
-    fromIndex: 검색을 시작할 index (입력하지 않으면 0부터 검색을 시작)
+    - Array.indexOf(searchElement[, fromIndex]): 인자로 받은 값을 찾아 맞는 식별자 반환
+      매개변수(parameter)
+      searchElement: 찾으려는 값
+      fromIndex: 검색을 시작할 index (입력하지 않으면 0부터 검색을 시작)
         ex) let arr = [1,2,3,4]
-            arr.indexOf(2) // result = 1 */
+           arr.indexOf(2) // result = 1 */

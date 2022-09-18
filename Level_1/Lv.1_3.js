@@ -81,7 +81,7 @@ function solution(n, m) {
     1-1. n과 m이 같지 않을 경우, n과 m을 나눈 나머지를 배열(b)에 저장해두고 b(i) % b(i+1)을 반복
     1-2. n과 m이 같을 경우, n과 m둘중 하나의 값 정해서 출력 */
   
-  // 🔑 Other's Solutions 🔑
+// 🔑 Other's Solutions 🔑
   function gcdlcm(a, b) {
     var r;
     for(var ab= a*b;r = a % b;a = b, b = r){}
