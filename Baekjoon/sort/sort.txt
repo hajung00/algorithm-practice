@@ -1,0 +1,35 @@
+Javascript 정렬 기준 함수
+
+- Javascript의 정렬 함수에서는 정렬 기준 함수가 사용된다.
+- 두 개의 원소 a, b를 입력으로 받는다.
+
+case 1) 반환 값이 0보다 작은 경우 => a가 우선순위가 높아 앞에 위치한다.
+case 2) 반환 값이 0보다 큰 경우 => b가 우선순위가 높아 앞에 위치한다.
+case 3) 반환 값이 0인 경우 => a가 우선순위가 높아 앞에 위치한다.
+
+* 오름차순 정렬
+
+오름차순 정렬 예시 1)
+arr.sort(function(a, b)  {
+  if(a > b) return 1;
+  if(a === b) return 0;
+  if(a < b) return -1;
+});
+
+오름차순 정렬 예시 2)
+- a가 b보다 작을 때, 반환 값이 음수가 되어 a가 앞에 위치한다.
+
+arr.sort((a, b) => a - b);
+
+* 내림차순 정렬
+내름차순 정렬 예시 1)
+arr.sort(function(a, b) {
+  if(a < b) return 1;
+  if(a > b) return -1;
+  if(a === b) return 0;
+});
+
+내름차순 정렬 예시 2)
+- b가 a보다 클 때, 반환 값이 양수가 되어 b가 앞에 위치한다.
+arr.sort((a, b) => b - a);
+
