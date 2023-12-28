@@ -34,10 +34,27 @@ let input = fs.readFileSync("binary_search_5.txt").toString().split("\n");
 
 let n = Number(input[0]);
 let arr = input[1].split(" ").map(Number);
-let answer = 0;
-for (let i = 0; i < n; i++) {
-  if (arr[i] < arr[i + 1]) {
-    answer++;
+
+function lowerBound(arr, val, start, end) {
+  while (start < end) {
+    let mid = parseInt((start + end) / 2);
+    if (arr[mid] >= val) {
+      end = mid;
+    } else start = mid + 1;
+  }
+  return end;
+}
+
+arr = arr.reverse();
+
+let val = [0];
+for (let i = 0; i < arr.length; i++) {
+  if (val[val.length - 1] >= arr[i]) {
+    let index = lowerBound(val, arr[i], 0, val.length);
+    val[index] = arr[i];
+  } else {
+    val.push(arr[i]);
   }
 }
-console.log(answer);
+
+console.log(n - (val.length - 1));
