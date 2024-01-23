@@ -47,7 +47,6 @@ let max = -1e9;
 let min = 1e9;
 
 function dfs(depth, value) {
-  console.log(depth, add, mul, value);
   if (depth == n) {
     max = Math.max(max, value);
     min = Math.min(min, value);
@@ -57,7 +56,6 @@ function dfs(depth, value) {
     add--;
     dfs(depth + 1, value + array[depth]);
     add++;
-    console.log("add");
   }
   if (sub > 0) {
     sub--;
@@ -68,7 +66,6 @@ function dfs(depth, value) {
     mul--;
     dfs(depth + 1, value * array[depth]);
     mul++;
-    console.log("mul");
   }
   if (div > 0) {
     div--;
