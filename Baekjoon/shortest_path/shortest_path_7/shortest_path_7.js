@@ -1,32 +1,29 @@
-// 2325. 개코전쟁
+// 1504. 특정한 최단 경로
 
 // 🏷️ 문제
-// “앙두레 강”이 개미와 코끼리 결혼식에서 기차를 아름답게 만드는 것을 실패했기 때문에 식장이 아수라장이 되고 결혼이 물거품이 되어버렸다. 급기야는 왕국 간에 분쟁으로 이어져 개미왕국은 코끼리왕국을 공격하기로 결정하였다. 동물나라 지도에서 개미왕국은 1번 정점에 위치해 있고 코끼리왕국은 N번 정점에 위치해 있다. 따라서 개미왕국이 1번 정점에서 N번 정점으로 공격을 하러 가는 상황이다. (개미왕국은 최단거리로 이동을 하게 되고, 코끼리왕국은 움직이지 않는다)
-// “개미”와 “코끼리”의 앞 글자를 따서 이 전쟁은 “개코전쟁”으로 역사에 기억된다.
-// “앙두레 강”은 자신 때문에 발생한 이 전쟁을 어떻게든 막으려고 한다. 협상을 할 시간을 벌기 위해 개미왕국이 코끼리왕국에 도착하는 시간을 최대한 늦추려고 한다. 그래서 “앙두레 강”은 사자왕국의 도움을 빌어 도로 중 딱 하나를 파괴하려고 하는데 어느 도로를 파괴해야 개미왕국이 최단거리로 가더라도 그 거리를 최대로 할 수 있을까?
-// “앙두레 강”를 도와 1번 정점에서 N번 정점으로의 최단거리가 최대가 되도록 도로 하나를 파괴하도록 하자. (어떤 하나의 도로를 파괴하더라도 1번 정점에서 N번 정점으로 도달 가능하다)
+// 방향성이 없는 그래프가 주어진다. 세준이는 1번 정점에서 N번 정점으로 최단 거리로 이동하려고 한다. 또한 세준이는 두 가지 조건을 만족하면서 이동하는 특정한 최단 경로를 구하고 싶은데, 그것은 바로 임의로 주어진 두 정점은 반드시 통과해야 한다는 것이다.
+// 세준이는 한번 이동했던 정점은 물론, 한번 이동했던 간선도 다시 이동할 수 있다. 하지만 반드시 최단 경로로 이동해야 한다는 사실에 주의하라. 1번 정점에서 N번 정점으로 이동할 때, 주어진 두 정점을 반드시 거치면서 최단 경로로 이동하는 프로그램을 작성하시오.
 
 // 🏷️ 입력
-// 첫 줄에 N과 M이 입력된다. N은 정점의 개수이고 M은 도로의 수이다. (1 ≤ N ≤ 1000, 1 ≤ M ≤ N×(N-1)/2)
-// 다음 줄부터 M개의 줄에 도로의 정보가 입력된다.
-// i+1번째 줄에는 i번째 도로의 정보 xi yi zi가 입력되고 이 도로는 정점 xi와 정점 yi를 잇는 도로이며 지나는데 zi만큼의 시간이 걸린다는 것을 의미한다. 두 정점사이에는 두 개 이상의 길이 존재하지 않고 모든 도로는 양방향이며 한 도로를 파괴하는 것은 양방향의 길 모두를 파괴하는 것이다. (1 ≤ xi, yi ≤ N, 1 ≤ zi ≤ 1000)
+// 첫째 줄에 정점의 개수 N과 간선의 개수 E가 주어진다. (2 ≤ N ≤ 800, 0 ≤ E ≤ 200,000) 둘째 줄부터 E개의 줄에 걸쳐서 세 개의 정수 a, b, c가 주어지는데, a번 정점에서 b번 정점까지 양방향 길이 존재하며, 그 거리가 c라는 뜻이다. (1 ≤ c ≤ 1,000) 다음 줄에는 반드시 거쳐야 하는 두 개의 서로 다른 정점 번호 v1과 v2가 주어진다. (v1 ≠ v2, v1 ≠ N, v2 ≠ 1) 임의의 두 정점 u와 v사이에는 간선이 최대 1개 존재한다.
 
 // 🏷️ 출력
-// 적당한 도로하나를 파괴했을 때 1번 정점에서 N번 정점으로의 최단거리의 최댓값을 출력한다.
+// 첫째 줄에 두 개의 정점을 지나는 최단 경로의 길이를 출력한다. 그러한 경로가 없을 때에는 -1을 출력한다.
 
 // 🏷️ 예제 입출력
 
 // 입력
-// 5 6
-// 1 2 4
-// 1 3 3
-// 2 3 1
-// 2 4 4
-// 2 5 7
-// 4 5 1
+// 4 6
+// 1 2 3
+// 2 3 3
+// 3 4 1
+// 1 3 5
+// 2 4 5
+// 1 4 4
+// 2 3
 
 // 출력
-// 11
+// 7
 
 /**
  * Expose `PriorityQueue`.
@@ -201,54 +198,28 @@ PriorityQueue.prototype._swap = function (a, b) {
   this._elements[b] = aux;
 };
 
-// Queue 구현
-class Queue {
-  constructor() {
-    this.items = {};
-    this.headIndex = 0;
-    this.tailIndex = 0;
-  }
-  enqueue(item) {
-    this.items[this.tailIndex] = item;
-    this.tailIndex++;
-  }
-  dequeue() {
-    const item = this.items[this.headIndex];
-    delete this.items[this.headIndex];
-    this.headIndex++;
-    return item;
-  }
-  getLength() {
-    return this.tailIndex - this.headIndex;
-  }
-}
-
 let fs = require("fs");
-let input = fs.readFileSync("shortest_path_6.txt").toString().split("\n");
-
+let input = fs.readFileSync("shortest_path_7.txt").toString().split("\n");
 let INF = 1e9;
-let [n, m] = input[0].split(" ").map(Number);
+let [n, e] = input[0].split(" ").map(Number);
+let distance = Array(n + 1).fill(INF);
 let graph = [];
-for (let i = 0; i <= n; i++) graph.push([]);
-for (let i = 1; i <= m; i++) {
+for (let i = 1; i <= n + 1; i++) graph.push([]);
+for (let i = 1; i <= e; i++) {
   let [a, b, c] = input[i].split(" ").map(Number);
   graph[a].push([b, c]);
   graph[b].push([a, c]);
 }
+let [v1, v2] = input[e + 1].split(" ").map(Number);
 
-let distance = Array(n + 1).fill(INF);
-
-function dijkstra(a, b) {
+function dijkstra(start) {
   let pq = new PriorityQueue((a, b) => b[0] - a[0]);
-  pq.enq([0, 1]);
-  distance[1] = 0;
+  pq.enq([0, start]);
+  distance[start] = 0;
   while (pq.size() != 0) {
     let [dist, now] = pq.deq();
     if (distance[now] < dist) continue;
     for (let i of graph[now]) {
-      if (a == i[0] && b == now) continue;
-      else if (a == now && b == i[0]) continue;
-
       let cost = dist + i[1];
       if (cost < distance[i[0]]) {
         distance[i[0]] = cost;
@@ -258,36 +229,23 @@ function dijkstra(a, b) {
   }
 }
 
-dijkstra(-1, -1);
+dijkstra(1);
+let distance_1_to_v1 = distance[v1];
+let distance_1_to_v2 = distance[v2];
 
-function bfs() {
-  let queue = new Queue();
-  let visited = new Set();
-  let removes = [];
-  queue.enqueue(n);
-  while (queue.getLength() != 0) {
-    let now = queue.dequeue();
-    if (now === 1) continue;
-    for (let i of graph[now]) {
-      let cost = distance[i[0]] + i[1];
-      if (cost == distance[now]) {
-        removes.push([i[0], now]);
-        if (!visited.has(i[0])) {
-          queue.enqueue(i[0]);
-          visited.add(i[0]);
-        }
-      }
-    }
-  }
-  return removes;
-}
+distance = Array(n + 1).fill(INF);
+dijkstra(v1);
+let distance_v1_to_v2 = distance[v2];
+let distance_v1_to_n = distance[n];
 
-let removes = bfs();
-let result = 0;
-for (let [a, b] of removes) {
-  distance = Array(n + 1).fill(INF);
-  dijkstra(a, b);
-  result = Math.max(result, distance[n]);
-}
+distance = Array(n + 1).fill(INF);
+dijkstra(v2);
+let distance_v2_to_v1 = distance[v1];
+let distance_v2_to_n = distance[n];
 
-console.log(result);
+let result_v1_to_v2 = distance_1_to_v1 + distance_v1_to_v2 + distance_v2_to_n;
+let result_v2_to_v1 = distance_1_to_v2 + distance_v2_to_v1 + distance_v1_to_n;
+
+let result = Math.min(result_v1_to_v2, result_v2_to_v1);
+if (result >= INF) console.log(-1);
+else console.log(result);
