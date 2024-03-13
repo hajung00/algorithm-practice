@@ -27,6 +27,7 @@ let input = fs.readFileSync("math_4.txt").toString().split("\n");
 let [m, n] = input[0].split(" ").map(Number);
 
 for (let i = m; i <= n; i++) {
+  if (i == 1) continue;
   if (check(i)) console.log(i);
 }
 
